@@ -1,19 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-} from "recharts";
+import ChartLine from "../components/ChartLine";
+import ChartPie from "../components/ChartPie";
 
-// CATEGORIAS e cores
 const CATEGORIES = [
   { name: "Alimentação", color: "#f87171" },
   { name: "Transporte", color: "#facc15" },
@@ -33,17 +23,14 @@ export default function Dashboard() {
     valor: "",
   });
 
-  // Carregar do localStorage
   useEffect(() => {
     const storedGastos = JSON.parse(localStorage.getItem("gastos")) || [];
     setGastos(storedGastos);
-
     const storedRendimentos =
       JSON.parse(localStorage.getItem("rendimentos")) || [];
     setRendimentos(storedRendimentos);
   }, []);
 
-  // Salvar no localStorage
   useEffect(() => {
     localStorage.setItem("gastos", JSON.stringify(gastos));
   }, [gastos]);
@@ -52,7 +39,6 @@ export default function Dashboard() {
     localStorage.setItem("rendimentos", JSON.stringify(rendimentos));
   }, [rendimentos]);
 
-  // GASTOS agrupados por data
   const gastosPorData = gastos.reduce((acc, gasto) => {
     const date = gasto.date;
     if (!acc[date]) acc[date] = 0;
@@ -60,7 +46,6 @@ export default function Dashboard() {
     return acc;
   }, {});
 
-  // RENDIMENTOS agrupados por data
   const rendimentosPorData = rendimentos.reduce((acc, rendimento) => {
     const date = rendimento.date;
     if (!acc[date]) acc[date] = 0;
@@ -75,7 +60,6 @@ export default function Dashboard() {
     ])
   ).sort();
 
-  // Gráfico de linha — só datas com valor > 0
   const lineData = datas
     .map((date) => ({
       date,
@@ -84,7 +68,6 @@ export default function Dashboard() {
     }))
     .filter((d) => d.gastos > 0 || d.rendimentos > 0);
 
-  // Gráfico de pizza
   const gastosPorCategoria = gastos.reduce((acc, gasto) => {
     if (!acc[gasto.categoria]) acc[gasto.categoria] = 0;
     acc[gasto.categoria] += Number(gasto.valor);
@@ -98,7 +81,6 @@ export default function Dashboard() {
     })
   );
 
-  // Submissão gasto
   const handleSubmitGasto = (e) => {
     e.preventDefault();
     if (!formGasto.date || !formGasto.valor || !formGasto.categoria) return;
@@ -113,7 +95,6 @@ export default function Dashboard() {
     setFormGasto({ date: "", valor: "", categoria: "" });
   };
 
-  // Submissão rendimento
   const handleSubmitRendimento = (e) => {
     e.preventDefault();
     if (!formRendimento.date || !formRendimento.valor) return;
@@ -129,24 +110,12 @@ export default function Dashboard() {
 
   return (
     <div className="p-8 flex flex-col gap-8">
-      {/* GRÁFICO DE LINHA */}
       <div className="bg-white p-6 rounded shadow w-full">
         <h2 className="text-xl font-bold mb-4">Histórico Financeiro</h2>
-        {lineData.length > 0 ? (
-          <LineChart width={800} height={300} data={lineData}>
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="rendimentos" stroke="#22c55e" />
-            <Line type="monotone" dataKey="gastos" stroke="#ef4444" />
-          </LineChart>
-        ) : (
-          <p className="text-gray-500 text-center">Não há dados para exibir.</p>
-        )}
+        <ChartLine data={lineData} />
       </div>
 
       <div className="flex gap-8 flex-wrap">
-        {/* FORMULÁRIO DE GASTO */}
         <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
           <h2 className="text-lg font-bold mb-4">Cadastrar Gasto</h2>
           <form onSubmit={handleSubmitGasto} className="flex flex-col gap-4">
@@ -193,38 +162,11 @@ export default function Dashboard() {
           </form>
         </div>
 
-        {/* GRÁFICO DE PIZZA */}
         <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
           <h2 className="text-lg font-bold mb-4">Gastos por Categoria</h2>
-          {pieData.length > 0 ? (
-            <PieChart width={300} height={300}>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label
-              >
-                {pieData.map((entry, index) => {
-                  const cat = CATEGORIES.find((c) => c.name === entry.name);
-                  return (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={cat ? cat.color : "#ccc"}
-                    />
-                  );
-                })}
-              </Pie>
-              <Legend />
-            </PieChart>
-          ) : (
-            <p className="text-gray-500 text-center">Não há dados para exibir.</p>
-          )}
+          <ChartPie data={pieData} categories={CATEGORIES} />
         </div>
 
-        {/* FORMULÁRIO DE RENDIMENTO */}
         <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
           <h2 className="text-lg font-bold mb-4">Cadastrar Rendimento</h2>
           <form
