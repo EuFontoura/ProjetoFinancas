@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`h-screen bg-black flex flex-col border-r-2 border-amber-300 justify-center items-center transition-all duration-500 relative ${
+      className={`bg-black flex flex-col border-r-2 border-amber-300 justify-center items-center transition-all duration-500 relative ${
         isOpen ? "w-52" : "w-12"
       }`}
       onMouseEnter={() => setIsOpen(true)}

@@ -2,7 +2,7 @@
 export default function Home() {
   return (
     <div>
-        teste teste
+        duashduhas
     </div>
   );
 }
