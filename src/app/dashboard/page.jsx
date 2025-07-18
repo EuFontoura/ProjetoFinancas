@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import ChartLine from "../components/ChartLine";
 import ChartPie from "../components/ChartPie";
+import Table from "../components/Table";
 
 const CATEGORIES = [
   { name: "Alimentação", color: "#f87171" },
@@ -22,6 +23,8 @@ export default function Dashboard() {
     date: "",
     valor: "",
   });
+
+  const [showTable, setShowTable] = useState(false);
 
   useEffect(() => {
     const storedGastos = JSON.parse(localStorage.getItem("gastos")) || [];
@@ -110,9 +113,24 @@ export default function Dashboard() {
 
   return (
     <div className="p-8 flex flex-col gap-8">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">
+          {showTable ? "Tabela Financeira" : "Histórico Financeiro"}
+        </h2>
+        <button
+          onClick={() => setShowTable(!showTable)}
+          className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 cursor-pointer"
+        >
+          {showTable ? "Ver Gráfico" : "Ver Tabela"}
+        </button>
+      </div>
+
       <div className="bg-white p-6 rounded shadow w-full">
-        <h2 className="text-xl font-bold mb-4">Histórico Financeiro</h2>
-        <ChartLine data={lineData} />
+        {showTable ? (
+          <Table rendimentos={rendimentos} gastos={gastos} />
+        ) : (
+          <ChartLine data={lineData} />
+        )}
       </div>
 
       <div className="flex gap-8 flex-wrap">

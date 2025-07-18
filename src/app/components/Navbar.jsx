@@ -14,7 +14,6 @@ export default function Navbar() {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      {/* Botões */}
       {isOpen && (
         <div className="flex flex-col gap-4 w-full px-4">
           {Array.from({ length: 5 }, (_, i) => (
@@ -28,7 +27,6 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Seta maior com rotação */}
       <div
         className={`
             py-10
