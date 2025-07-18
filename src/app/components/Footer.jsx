@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Modal } from "./Modal";
+import { Modal } from "./ModalTermos";
 
 export default function Footer() {
-  const [modalInfo, setModalInfo] = useState(null); // 'sobre', 'contato', 'termos' ou null
+  const [modalInfo, setModalInfo] = useState(null);
 
   const openModal = (type) => setModalInfo(type);
   const closeModal = () => setModalInfo(null);
@@ -36,7 +36,6 @@ export default function Footer() {
         </div>
       </footer>
 
-      {/* Modais */}
       <Modal isOpen={modalInfo === "sobre"} onClose={closeModal} title="Sobre">
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis temporibus repudiandae id laudantium, sequi a dolorem itaque rerum eum nihil inventore odio vero nam deleniti. Asperiores obcaecati architecto voluptatem explicabo?.</p>
       </Modal>
