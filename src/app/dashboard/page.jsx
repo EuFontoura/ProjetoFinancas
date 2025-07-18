@@ -7,6 +7,7 @@ import Table from "../components/Table";
 import AddCategory from "../components/AddCategory";
 
 export default function Dashboard() {
+  const [isClient, setIsClient] = useState(false);
   const [gastos, setGastos] = useState([]);
   const [rendimentos, setRendimentos] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -22,29 +23,43 @@ export default function Dashboard() {
   const [showTable, setShowTable] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Carrega do localStorage
   useEffect(() => {
-    setGastos(JSON.parse(localStorage.getItem("gastos")) || []);
-    setRendimentos(JSON.parse(localStorage.getItem("rendimentos")) || []);
-    setCategorias(JSON.parse(localStorage.getItem("categorias")) || [
-      { name: "Alimentação", color: "#f87171" },
-      { name: "Transporte", color: "#facc15" },
-      { name: "Lazer", color: "#60a5fa" },
-    ]);
+    setIsClient(true);
   }, []);
 
-  // Salva
   useEffect(() => {
-    localStorage.setItem("gastos", JSON.stringify(gastos));
-  }, [gastos]);
+    if (!isClient) return;
+
+    setGastos(JSON.parse(localStorage.getItem("gastos")) || []);
+    setRendimentos(JSON.parse(localStorage.getItem("rendimentos")) || []);
+    setCategorias(
+      JSON.parse(localStorage.getItem("categorias")) || [
+        { name: "Alimentação", color: "#f87171" },
+        { name: "Transporte", color: "#facc15" },
+        { name: "Lazer", color: "#60a5fa" },
+      ]
+    );
+  }, [isClient]);
 
   useEffect(() => {
-    localStorage.setItem("rendimentos", JSON.stringify(rendimentos));
-  }, [rendimentos]);
+    if (isClient) {
+      localStorage.setItem("gastos", JSON.stringify(gastos));
+    }
+  }, [gastos, isClient]);
 
   useEffect(() => {
-    localStorage.setItem("categorias", JSON.stringify(categorias));
-  }, [categorias]);
+    if (isClient) {
+      localStorage.setItem("rendimentos", JSON.stringify(rendimentos));
+    }
+  }, [rendimentos, isClient]);
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("categorias", JSON.stringify(categorias));
+    }
+  }, [categorias, isClient]);
+
+  if (!isClient) return null;
 
   const gastosPorData = gastos.reduce((acc, gasto) => {
     const date = gasto.date;
@@ -118,7 +133,6 @@ export default function Dashboard() {
 
   return (
     <div className="p-8 flex flex-col gap-8">
-      {/* Toggle */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">
           {showTable ? "Tabela Financeira" : "Histórico Financeiro"}
