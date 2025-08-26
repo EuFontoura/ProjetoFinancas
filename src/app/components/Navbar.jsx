@@ -18,7 +18,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="flex flex-col gap-4 w-full px-4">
           <NavButton title="Dashboard" href="/" />
-          <NavButton title="Index 2" href="/" />
+          <NavButton title="Calculadoras" href="/calculadoras" />
           <NavButton title="Index 3" href="/" />
           <NavButton title="Index 4" href="/" />
           <NavButton title="Index 5" href="/" />

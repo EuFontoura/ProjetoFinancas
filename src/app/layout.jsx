@@ -20,15 +20,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body>
         <div className="flex flex-col h-screen">
+          {/* Conteúdo principal com sidebar + main */}
           <div className="flex flex-1 overflow-hidden">
             <Navbar />
             <main className="flex-1 p-8 overflow-y-auto bg-gray-100">
               {children}
             </main>
           </div>
+
+          {/* Rodapé */}
           <Footer />
         </div>
       </body>
