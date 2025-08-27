@@ -6,7 +6,7 @@ import Comparador from "../components/calculadoras/Comparador";
 
 export default function Calculadoras() {
   return (
-    <div className="p-8">
+    <div className="md:p-8">
       <h1 className="text-2xl font-bold mb-4">
         Calculadoras de Investimentos
       </h1>

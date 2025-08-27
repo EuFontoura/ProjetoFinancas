@@ -24,7 +24,7 @@ export default function JurosCompostos() {
         <input type="number" placeholder="Valor Inicial (R$)" value={valor} onChange={e => setValor(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Taxa (% ao período)" value={taxa} onChange={e => setTaxa(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Nº de Períodos" value={periodos} onChange={e => setPeriodos(e.target.value)} className="border p-2 rounded" required/>
-        <button className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600">Calcular</button>
+        <button className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 cursor-pointer">Calcular</button>
       </form>
       {resultado && <p className="mt-4 font-semibold">Montante Final: R$ {resultado}</p>}
     </div>

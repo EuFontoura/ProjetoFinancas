@@ -23,7 +23,7 @@ export default function Comparador() {
       <form onSubmit={calcular} className="flex flex-col gap-4">
         <input type="number" placeholder="Valor Inicial (R$)" value={valor} onChange={e => setValor(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Meses" value={meses} onChange={e => setMeses(e.target.value)} className="border p-2 rounded" required/>
-        <button className="bg-gray-700 text-white rounded p-2 hover:bg-gray-800">Comparar</button>
+        <button className="bg-gray-700 text-white rounded p-2 hover:bg-gray-800 cursor-pointer">Comparar</button>
       </form>
       {resultado && (
         <div className="mt-4">

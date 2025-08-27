@@ -24,7 +24,7 @@ export default function CDI() {
         <input type="number" placeholder="Valor Inicial (R$)" value={valor} onChange={e => setValor(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Dias Úteis" value={dias} onChange={e => setDias(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Taxa CDI (% a.a.)" value={cdi} onChange={e => setCdi(e.target.value)} className="border p-2 rounded"/>
-        <button className="bg-purple-500 text-white rounded p-2 hover:bg-purple-600">Calcular</button>
+        <button className="bg-purple-500 text-white rounded p-2 hover:bg-purple-600 cursor-pointer">Calcular</button>
       </form>
       {resultado && <p className="mt-4 font-semibold">Montante Final: R$ {resultado}</p>}
     </div>

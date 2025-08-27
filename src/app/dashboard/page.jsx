@@ -132,7 +132,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-8 flex flex-col gap-8">
+    <div className="md:p-8 flex flex-col gap-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">
           {showTable ? "Tabela Financeira" : "Histórico Financeiro"}
@@ -153,8 +153,8 @@ export default function Dashboard() {
         )}
       </div>
 
-      <div className="flex gap-8">
-        <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
+      <div className="md:flex gap-8">
+        <div className="bg-white p-6 rounded shadow w-full md:w-1/3 mb-8">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-bold">Cadastrar Gasto</h2>
             <button
@@ -208,7 +208,7 @@ export default function Dashboard() {
           </form>
         </div>
 
-        <div className="bg-white p-6 rounded shadow w-full md:w-1/3">
+        <div className="bg-white p-6 rounded shadow w-full md:w-1/3 mb-8">
           <h2 className="text-lg font-bold mb-4">Gastos por Categoria</h2>
           <ChartPie data={pieData} categories={categorias} />
         </div>

@@ -23,7 +23,7 @@ export default function LCI() {
         <input type="number" placeholder="Valor Inicial (R$)" value={valor} onChange={e => setValor(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Taxa (% a.a.)" value={taxa} onChange={e => setTaxa(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Anos" value={anos} onChange={e => setAnos(e.target.value)} className="border p-2 rounded" required/>
-        <button className="bg-orange-500 text-white rounded p-2 hover:bg-orange-600">Calcular</button>
+        <button className="bg-orange-500 text-white rounded p-2 hover:bg-orange-600 cursor-pointer">Calcular</button>
       </form>
       {resultado && <p className="mt-4 font-semibold">Montante Final: R$ {resultado}</p>}
     </div>

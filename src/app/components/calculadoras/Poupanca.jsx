@@ -22,7 +22,7 @@ export default function Poupanca() {
       <form onSubmit={calcular} className="flex flex-col gap-4">
         <input type="number" placeholder="Valor Inicial (R$)" value={valor} onChange={e => setValor(e.target.value)} className="border p-2 rounded" required/>
         <input type="number" placeholder="Meses" value={meses} onChange={e => setMeses(e.target.value)} className="border p-2 rounded" required/>
-        <button className="bg-green-500 text-white rounded p-2 hover:bg-green-600">Calcular</button>
+        <button className="bg-green-500 text-white rounded p-2 hover:bg-green-600 cursor-pointer">Calcular</button>
       </form>
       {resultado && <p className="mt-4 font-semibold">Montante Final: R$ {resultado}</p>}
     </div>
